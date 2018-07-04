@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+all_changed_files="git diff --name-only master... | grep '\.rb$'"
+autocorrect_command="$all_changed_files | xargs bundle exec rubocop -a"
+
+printf "\nFiles to be checked...\n\n"
+
+eval $all_changed_files
+
+if [ "$RUBO_AUTOCORRECT" = true ]; then
+    if [ -z "$(git status --untracked-files=no --porcelain)" ]; then
+
+        printf "\nFixing style mistakes in changed files...\n\n"
+
+        eval $autocorrect_command
+
+        printf "\n"
+
+        git add -u
+        git commit -m "automated rubocop changes"
+
+      else
+        printf "Your working directory isn't clean, please commit or stash the files in your working directory"
+        printf "\n\n"
+        exit 1
+    fi
+
+  else
+    printf "\nRunning without autocorrect"
+    printf "\nIf you want to run autocorrect you can use the following command (it's long!) and commit the changes yourself:\n\n"
+    printf "$autocorrect_command"
+fi
+
+printf "\n\nChecking modified lines for mistakes...\n\n"
+
+bundle exec pronto run --exit-code
