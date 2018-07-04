@@ -23,10 +23,6 @@ Metrics/BlockLength:
   Exclude:
     - "spec/**/*.rb"
 
-# TODO: Enable this after Ruby 2.5 is ready
-Style/RedundantBegin:
-  Enabled: false
-
 Style/NumericPredicate:
   Enabled: false
 
