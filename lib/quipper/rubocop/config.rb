@@ -1,27 +1,56 @@
 require 'thor'
+require 'pry'
 
 module Quipper
   module Rubocop
     module Config
       class CLI < Thor
 
-        CONFIG_FILE_NAME = ".rubocop.yml"
-        GITHOOK_FILE_PATH = ".githook/prepush"
+        RUBOCOP_CONFIG_FILE_NAME = ".rubocop.yml"
+        RUBOCOP_TODO_FILE_NAME = ".rubocop.yml"
+        GITHOOK_FILE_PATH = ".githooks/prepush"
+
         desc "install", "Install rubocop config"
         option :todo
+        option :hook
+        option :all
         def install
-          template_path = File.expand_path("../../../templates", __dir__)
-          puts "#{File.exist?(CONFIG_FILE_NAME) ? "overwrite" : "create"} #{CONFIG_FILE_NAME}"
-          FileUtils.copy_file(File.join(template_path, CONFIG_FILE_NAME), CONFIG_FILE_NAME)
+          create_rubocop_config!(RUBOCOP_CONFIG_FILE_NAME)
+          create_rubocop_todo_file! if options[:todo] || options[:all]
+          create_prepush_hook!(GITHOOK_FILE_PATH) if options[:hook] || options[:all]
+        end
 
+        desc "uninstall", "uninstall rubocop config"
+        def uninstall
+          File.delete(RUBOCOP_CONFIG_FILE_NAME)
+          File.delete(RUBOCOP_TODO_FILE_NAME)
+          File.delete(GITHOOK_FILE_PATH)
+        end
+
+        private
+
+        def template_path
+          File.expand_path("../../../templates", __dir__)
+        end
+
+        def create_rubocop_config!(config_file_name)
+          puts "#{File.exist?(config_file_name) ? "overwrite" : "create"} #{config_file_name}"
+          FileUtils.copy_file(File.join(template_path, config_file_name), config_file_name)
+        end
+
+        def create_rubocop_todo_file!
           puts "creating rubocop todo file"
+          system "rubocop --auto-gen-config"
+        end
 
-          system "rubocop --auto-gen-config" if options[:todo]
-
+        def create_prepush_hook!(file_path)
           puts "adding git hook"
-          #puts "#{File.exist?(GITHOOK_FILE_PATH) ? "overwrite" : "create"} #{GITHOOK_FILE_PATH}"
-          #FileUtils.copy_file(File.join(template_path, GITHOOK_FILE_PATH), GITHOOK_FILE_PATH)
+          puts "#{File.exist?(file_path) ? "overwrite" : "create"} #{file_path}"
+          unless File.directory?(".githooks")
+            FileUtils.mkdir_p(".githooks")
+          end
 
+          FileUtils.copy_file(File.join(template_path, file_path), file_path)
         end
       end
     end

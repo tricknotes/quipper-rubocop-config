@@ -1,1 +1,8 @@
-inherit_from: default.yml
+inherit_from: .rubocop_todo.yml
+
+inherit_gem:
+  quipper-rubocop-config:
+    - "config/rubocop.yml"
+
+AllCops:
+  TargetRubyVersion: 2.5
