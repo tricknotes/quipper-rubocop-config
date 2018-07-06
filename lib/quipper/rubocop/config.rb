@@ -7,7 +7,7 @@ module Quipper
       class CLI < Thor
 
         RUBOCOP_CONFIG_FILE_NAME = ".rubocop.yml"
-        RUBOCOP_TODO_FILE_NAME = ".rubocop.yml"
+        RUBOCOP_TODO_FILE_NAME = ".rubocop_todo.yml"
         GITHOOK_FILE_PATH = ".githooks/prepush"
 
         desc "install", "Install rubocop config"
@@ -22,9 +22,11 @@ module Quipper
 
         desc "uninstall", "uninstall rubocop config"
         def uninstall
-          File.delete(RUBOCOP_CONFIG_FILE_NAME)
-          File.delete(RUBOCOP_TODO_FILE_NAME)
-          File.delete(GITHOOK_FILE_PATH)
+          remove_file(RUBOCOP_CONFIG_FILE_NAME)
+          remove_file(RUBOCOP_TODO_FILE_NAME)
+          remove_file(GITHOOK_FILE_PATH)
+
+          puts "Uninstallation complete"
         end
 
         private
@@ -44,13 +46,21 @@ module Quipper
         end
 
         def create_prepush_hook!(file_path)
-          puts "adding git hook"
+          puts "adding git prepush hook"
           puts "#{File.exist?(file_path) ? "overwrite" : "create"} #{file_path}"
+
           unless File.directory?(".githooks")
             FileUtils.mkdir_p(".githooks")
           end
 
           FileUtils.copy_file(File.join(template_path, file_path), file_path)
+        end
+
+        def remove_file(file_path)
+          if File.exist?(file_path)
+            File.delete(file_path)
+            puts "Removing #{file_path}"
+          end
         end
       end
     end
