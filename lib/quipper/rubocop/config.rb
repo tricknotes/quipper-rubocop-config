@@ -1,5 +1,6 @@
 require "thor"
 
+
 module Quipper
   module Rubocop
     module Config
