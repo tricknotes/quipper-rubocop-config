@@ -49,11 +49,15 @@ module Quipper
           puts "adding git prepush hook"
           puts "#{File.exist?(file_path) ? "overwrite" : "create"} #{file_path}"
 
-          unless File.directory?(".githooks")
-            FileUtils.mkdir_p(".githooks")
+          unless File.directory?(".git")
+            FileUtils.mkdir_p(".git")
           end
 
-          FileUtils.copy_file(File.join(template_path, file_path), file_path)
+          unless File.directory?(".git/hooks")
+            FileUtils.mkdir_p(".git/hooks")
+          end
+
+          FileUtils.copy_file(File.join(template_path, ".githooks/pre-push"), file_path)
           FileUtils.chmod(0755, file_path)
         end
 
