@@ -53,6 +53,7 @@ module Quipper
           end
 
           FileUtils.copy_file(File.join(template_path, file_path), file_path)
+          FileUtils.chmod(0755, file_path)
         end
 
         def remove_file(file_path)
