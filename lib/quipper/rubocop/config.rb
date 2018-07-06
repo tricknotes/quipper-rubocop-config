@@ -1,5 +1,6 @@
 require "thor"
 
+
 module Quipper
   module Rubocop
     module Config
@@ -7,7 +8,7 @@ module Quipper
 
         RUBOCOP_CONFIG_FILE_NAME = ".rubocop.yml"
         RUBOCOP_TODO_FILE_NAME = ".rubocop_todo.yml"
-        GITHOOK_FILE_PATH = ".githooks/prepush"
+        GITHOOK_FILE_PATH = ".git/hooks/pre-push"
 
         desc "install", "Install rubocop config"
         option :todo
