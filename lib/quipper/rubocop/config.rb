@@ -49,8 +49,6 @@ module Quipper
 
           raise "File already exists at #{file_path}" if File.exist?(file_path)
 
-          #FileUtils.copy_file(File.join(template_path, ".githooks/pre-push"), file_path)
-          #
           hook_template = File.join(template_path, ".githooks/pre-push.erb")
           @branch_name = ask("What is the name of the branch you would like to compare to? (usually master or develop)")
           hook_template = ERB.new(File.read(hook_template)).result(binding)
