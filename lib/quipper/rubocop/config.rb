@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require "thor"
+require "pry"
+require "erb"
 
 module Quipper
   module Rubocop
@@ -12,12 +14,14 @@ module Quipper
 
         desc "install", "Install rubocop config"
         option :todo
-        option :hook
-        option :all
         def install
           create_rubocop_config!(RUBOCOP_CONFIG_FILE_NAME)
-          create_rubocop_todo_file! if options[:todo] || options[:all]
-          create_prepush_hook!(GITHOOK_FILE_PATH) if options[:hook] || options[:all]
+          create_rubocop_todo_file! if options[:todo]
+        end
+
+        desc "install_prepush", "Install prepush hook"
+        def install_prepush
+          create_prepush_hook!(GITHOOK_FILE_PATH)
         end
 
         desc "uninstall", "uninstall rubocop config"
@@ -47,7 +51,7 @@ module Quipper
           raise "File already exists at #{file_path}" if File.exist?(file_path)
 
           FileUtils.copy_file(File.join(template_path, ".githooks/pre-push"), file_path)
-          FileUtils.chmod(0o755, file_path)
+          FileUtils.chmod(0755, file_path)
           puts "hook created!"
         end
 
