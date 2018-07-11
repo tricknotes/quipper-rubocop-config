@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Quipper
   module Rubocop
     module Config
