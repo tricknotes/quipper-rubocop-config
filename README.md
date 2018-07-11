@@ -37,6 +37,7 @@ If you want to run rubocop before pushing there is a prepush hook which you can 
 
   `$ bundle exec quipper-rubocop-config install_prepush`
 
+This installs a prepush in `.git/hooks` folder so if you already have a `pre-push` file you won't be able to use it.
 If you want the fancy ability to autocorrect and commit your changes as well you can set `export RUBO_AUTOCORRECT=true` as an environment variable.
 
 ## Changing or adding a rule
