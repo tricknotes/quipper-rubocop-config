@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "thor"
+require "erb"
 
 module Quipper
   module Rubocop
@@ -48,8 +49,15 @@ module Quipper
 
           raise "File already exists at #{file_path}" if File.exist?(file_path)
 
-          FileUtils.copy_file(File.join(template_path, ".githooks/pre-push"), file_path)
-          FileUtils.chmod(0o755, file_path)
+          #FileUtils.copy_file(File.join(template_path, ".githooks/pre-push"), file_path)
+          #
+          hook_template = File.join(template_path, ".githooks/pre-push.erb")
+          @branch_name = ask("What is the name of the branch you would like to compare to? (usually master or develop)")
+          hook_template = ERB.new(File.read(hook_template)).result(binding)
+          File.open(file_path, "w+") do |f|
+            f.write(hook_template)
+          end
+          FileUtils.chmod(0755, file_path)
           puts "hook created!"
         end
 

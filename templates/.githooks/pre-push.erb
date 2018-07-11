@@ -2,7 +2,7 @@
 
 # quipper-rubocop-config
 
-all_changed_files="git diff --name-only master... | grep '\.rb$'"
+all_changed_files="git diff --name-only <%= @branch_name %>... | grep '\.rb$'"
 autocorrect_command="$all_changed_files | xargs bundle exec rubocop -a"
 
 printf "\nFiles to be checked...\n\n"
