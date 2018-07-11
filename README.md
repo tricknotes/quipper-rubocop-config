@@ -23,9 +23,13 @@ Then using the command line client you can use:
 Which will automatically install the `.rubocop.yml` which holds the configs.
 
 
+### Adding it into a legacy application
+
 Additionally if this is being installed into a legacy repo or one that already has a lot of files (and thus rubocop errors) you can run:
 
-`$ bundle exec quipper-rubocop-config --todo` to install automatically install the `.rubocop_todo.yml` file which lists the rules that are currently broken but which you might want to fix later and tells rubocop to ignore them for now.
+`$ bundle exec quipper-rubocop-config --with_todo`
+
+ This installs the `.rubocop_todo.yml` file which lists the rules that are currently broken but which you might want to fix later and tells rubocop to ignore them for now.
 
 ## Prepush hook
 
