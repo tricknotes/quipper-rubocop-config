@@ -51,7 +51,7 @@ module Quipper
           raise "File already exists at #{file_path}" if File.exist?(file_path)
 
           FileUtils.copy_file(File.join(template_path, ".githooks/pre-push"), file_path)
-          FileUtils.chmod(0755, file_path)
+          FileUtils.chmod(0o755, file_path)
           puts "hook created!"
         end
 
