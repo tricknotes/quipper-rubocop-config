@@ -45,15 +45,19 @@ module Quipper
         end
 
         def create_prepush_hook!(file_path)
-          puts "adding git prepush hook"
-          puts "#{File.exist?(file_path) ? "overwrite" : "create"} #{file_path}"
+          puts "adding git prepush hook at #{file_path}"
 
-          unless File.directory?(".githooks")
-            FileUtils.mkdir_p(".githooks")
+          if File.exist?(file_path)
+            answer = ask "A prepush githook file already existas at #{file_path}, would you like to overwrite it? (y/n)"
+            if answer != "y" && answer != "yes"
+              puts "skipping githook creation"
+              return
+            end
           end
 
-          FileUtils.copy_file(File.join(template_path, file_path), file_path)
+          FileUtils.copy_file(File.join(template_path, ".githooks/pre-push"), file_path)
           FileUtils.chmod(0755, file_path)
+          puts "hook created!"
         end
 
         def remove_file(file_path)

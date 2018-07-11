@@ -34,3 +34,5 @@ fi
 printf "\n\nChecking modified lines for mistakes...\n\n"
 
 bundle exec pronto run --exit-code
+
+# quipper-rubocop-config
