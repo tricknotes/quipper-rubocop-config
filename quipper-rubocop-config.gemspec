@@ -33,8 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "pronto", "0.9.5"
   spec.add_dependency "pronto-rubocop", "~> 0.9.0"
-  spec.add_dependency "pry"
-  spec.add_dependency "rubocop", "~> 0.52.1"
+  spec.add_dependency "rubocop", "~> 0.58.1"
   spec.add_dependency "thor", "~> 0.19"
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"

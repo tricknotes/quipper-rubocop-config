@@ -13,12 +13,6 @@ Layout/SpaceInsideHashLiteralBraces:
 Style/AsciiComments:
   Enabled: false
 
-# Ref: https://github.com/bbatsov/rubocop/issues/5589
-# Since we're already using ruby 2.5.0, it's reasonable to do this change.
-# TODO: Remove this once rubocop releases a version greater than 0.52.1
-Performance/HashEachMethods:
-  Enabled: false
-
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*.rb"
