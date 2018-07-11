@@ -1,6 +1,0 @@
-inherit_gem:
-  quipper-rubocop-config:
-    - "config/rubocop.yml"
-
-AllCops:
-  TargetRubyVersion: 2.5
