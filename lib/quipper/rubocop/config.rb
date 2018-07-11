@@ -12,10 +12,10 @@ module Quipper
         GITHOOK_FILE_PATH = ".git/hooks/pre-push"
 
         desc "install", "Install rubocop config"
-        option :todo
+        option :with_todo
         def install
           create_rubocop_config!(RUBOCOP_CONFIG_FILE_NAME)
-          create_rubocop_todo_file! if options[:todo]
+          create_rubocop_todo_file! if options[:with_todo]
         end
 
         desc "install_prepush", "Install prepush hook"
@@ -24,9 +24,10 @@ module Quipper
         end
 
         desc "uninstall", "uninstall rubocop config"
+        option :hook
         def uninstall
-          remove_file(RUBOCOP_CONFIG_FILE_NAME)
-          remove_file(RUBOCOP_TODO_FILE_NAME)
+          remove_file(RUBOCOP_CONFIG_FILE_NAME) unless options[:hook]
+          remove_file(RUBOCOP_TODO_FILE_NAME) unless options[:hook]
           remove_file(GITHOOK_FILE_PATH)
 
           puts "Uninstallation complete"

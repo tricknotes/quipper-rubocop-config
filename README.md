@@ -1,41 +1,48 @@
 # Quipper Rubocop Configs
 
-Holds all our default rubocop config for all of our repos.
+Adds Rubocop and holds the default rubocop config for Quipper that can be shared in any ruby repo.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'quipper-rubocop-config'
+quipper_gem 'quipper-rubocop-config'
 ```
 
 And then execute:
 
-    $ bundle
+  `$ bundle install`
 
-Or install it yourself as:
+$$ Usage
 
-    $ gem install quipper-rubocop-config
+Then using the command line client you can use:
 
-## Usage
+  `$ bundle exec quipper-rubocop-config install`
 
-Create a .rubocop.yml with the following config:
+Which will automatically install the `.rubocop.yml` which holds the configs.
 
-inherit_gem:
-  quipper-rubocop-config:
-    - default.yml
 
-## Development
+Additionally if this is being installed into a legacy repo or one that already has a lot of files (and thus rubocop errors) you can run:
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+`$ bundle exec quipper-rubocop-config --todo` to install automatically install the `.rubocop_todo.yml` file which lists the rules that are currently broken but which you might want to fix later and tells rubocop to ignore them for now.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+## Prepush hook
 
-## Contributing
+If you want to run rubocop before pushing there is a prepush hook which you can install.
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/quipper-rubocop-config.
+  `$ bundle exec quipper-rubocop-config install_prepush`
 
-## License
+If you want the fancy ability to autocorrect and commit your changes as well you can set `export RUBO_AUTOCORRECT=true` as an environment variable.
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+## Changing or adding a rule
+Please edit this file:
+
+https://github.com/quipper/quipper-rubocop-config/blob/master/config/rubocop.yml
+
+## Uninstall 
+
+To remove this gem and all created files simply run:
+  `$ bundle exec quipper-rubocop-config uninstall`
+
+and then remove the Gem from your Gemfile.
