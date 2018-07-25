@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "rubocop", "~> 0.58.1"
+  spec.add_dependency "rubocop", "0.58.1" # Rubocop doesn't follow semantic versioning and is relatively unstable
   spec.add_dependency "thor", "~> 0.19"
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
