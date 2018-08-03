@@ -7,7 +7,7 @@ Adds Rubocop and holds the default rubocop config for Quipper that can be shared
 Add this line to your application's Gemfile:
 
 ```ruby
-quipper_gem 'quipper-rubocop-config'
+gem 'quipper-rubocop-config'
 ```
 
 And then execute:
