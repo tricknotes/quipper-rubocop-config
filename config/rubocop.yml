@@ -1,6 +1,5 @@
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
-  Enabled: true
+  Enabled: false
 
 Layout/DotPosition:
   EnforcedStyle: leading
