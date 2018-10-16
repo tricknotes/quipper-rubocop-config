@@ -21,3 +21,6 @@ Style/NumericPredicate:
 
 Naming/PredicateName:
   Enabled: false
+
+Style/EmptyCaseCondition:
+  Enabled: false
