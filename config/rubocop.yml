@@ -2,8 +2,7 @@ Style/StringLiterals:
   Enabled: false
 
 Layout/DotPosition:
-  EnforcedStyle: leading
-  Enabled: true
+  EnforcedStyle: trailing
 
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: space
